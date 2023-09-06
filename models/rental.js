@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Rental =  mongoose.model('Rental', new mongoose.Schema({
-    
+
   userId:{
         type: mongoose.Types.ObjectId, 
         ref: 'User'
@@ -9,7 +9,7 @@ const Rental =  mongoose.model('Rental', new mongoose.Schema({
 
     appartmentId:{
         type: mongoose.Types.ObjectId, 
-        ref: 'Rental'
+        ref: 'Apartment'
 
     },
   

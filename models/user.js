@@ -8,7 +8,7 @@ const User =  mongoose.model('User', new mongoose.Schema({
 
     },
     userType:{
-        enum: ['Owner', 'Customer'],
+        enum: ['owner', 'customer'],
         required: true,
 
     },
@@ -21,8 +21,8 @@ const User =  mongoose.model('User', new mongoose.Schema({
     phone: {
         type: Number,
         required: true,
-        minlength:(9),
-        maxlength:(11)
+        minlength:9,
+        maxlength:11
     }
 }));
  

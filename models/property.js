@@ -10,8 +10,8 @@ const Property =  mongoose.model('Property', new mongoose.Schema({
     description:{
         type: String,
         required: true,
-        minlength: (5),
-        maxlength: (500)
+        minlength: 5,
+        maxlength: 500
 
     },
     location: {
