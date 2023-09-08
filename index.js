@@ -1,8 +1,16 @@
+
+const mongoose = require('mongoose');
+const user = require('./routes/Users');
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res)=>{
-    res.send('Hello world')
-    
-})
-app.listen(5500, () => console.log('listening on port 5500...'))
+app.use(express.json())
+
+mongoose.connect('mongodb://127.0.0.1:27017/estate-citadel')
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDB...',err));
+
+
+app.use('/api/users', user);
+
+app.listen(3000, () => console.log('listening on port 3000...'))
