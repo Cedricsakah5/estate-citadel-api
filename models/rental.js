@@ -12,7 +12,6 @@ const Rental =  mongoose.model('Rental', new mongoose.Schema({
         ref: 'Apartment'
 
     },
-
     startDate: {
        type:Date,
        required:true
