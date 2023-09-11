@@ -1,4 +1,6 @@
+
 const Joi = require('joi')
+
 const mongoose = require('mongoose');
 const User =  mongoose.model('User', new mongoose.Schema({
     name: {
@@ -12,6 +14,10 @@ const User =  mongoose.model('User', new mongoose.Schema({
         type: String,
         enum: ['owner', 'customer'],
         required: true,
+    userType:{
+        enum: ['owner', 'customer'],
+        required: true,
+
     },
     email: {
         type: String,
@@ -47,3 +53,8 @@ function validateUser(user) {
   
   exports.User = User; 
   exports.validate = validateUser;
+
+    }
+}));
+ 
+
