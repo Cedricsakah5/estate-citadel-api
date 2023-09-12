@@ -1,3 +1,6 @@
+
+const Joi = require('joi')
+
 const mongoose = require('mongoose');
 const User =  mongoose.model('User', new mongoose.Schema({
     name: {
@@ -7,6 +10,10 @@ const User =  mongoose.model('User', new mongoose.Schema({
         maxlength: 250
 
     },
+    userType: {
+        type: String,
+        enum: ['owner', 'customer'],
+        required: true,
     userType:{
         enum: ['owner', 'customer'],
         required: true,
@@ -23,6 +30,30 @@ const User =  mongoose.model('User', new mongoose.Schema({
         required: true,
         minlength:9,
         maxlength:11
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength:6,
+        maxlength:250
     }
-}));
+}}));
+
+function validateUser(user) {
+    const schema = Joi.object().keys({
+      name: Joi.string().min(3).max(250).required(),
+      userType: Joi.string().valid('owner', 'customer').required(),
+      email: Joi.string().email({ minDomainSegments: 3, tlds: { allow: ['com', 'net' ,'org'] } }).required(),
+      phone: Joi.string().min(9).max(11).required(),
+      password: Joi.string().min(6).max(250).required(),
+
+    });
+    return schema.validate(user);
+  }
+  
+  exports.User = User; 
+  exports.validate = validateUser;
+
+
  
+
