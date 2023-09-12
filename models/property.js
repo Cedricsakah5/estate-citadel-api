@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 const Property =  mongoose.model('Property', new mongoose.Schema({
     name: {
@@ -24,7 +25,21 @@ const Property =  mongoose.model('Property', new mongoose.Schema({
         required:true
     },
     image:{
-        type: Image,
-        required:true
+        type:Number,
     }
 }));
+
+function validateUser(property) {
+    const schema = Joi.object().keys({
+      name: Joi.string().min(3).max(250).required(),
+      description: Joi.string().min(5).max(500).required(),
+      ownerId: Joi.string().required(),
+      location: Joi.string().required(),
+      image: Joi.number()
+
+    });
+    return schema.validate(property);
+  }
+  
+  exports.Property = Property; 
+  exports.validate = validateUser;
