@@ -14,6 +14,5 @@ mongoose.connect('mongodb://127.0.0.1:27017/estate-citadel')
 
 app.use('/api/users', user);
 app.use('/api/properties', property);
-
 app.listen(3000, () => console.log('listening on port 3000...'));
 

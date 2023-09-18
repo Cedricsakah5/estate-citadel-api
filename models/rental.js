@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi')
 const Rental =  mongoose.model('Rental', new mongoose.Schema({
 
   userId:{
@@ -26,3 +27,8 @@ const Rental =  mongoose.model('Rental', new mongoose.Schema({
         require: true
      }
 }));
+
+function validateRental(rental){
+   
+
+}
