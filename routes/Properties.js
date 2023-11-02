@@ -1,7 +1,4 @@
 const propertiesController = require('../controllers/propertiesController')
-const mongoose = require('mongoose');
-const multer = require('multer')
-const upoad = multer({dest: 'uploads/'})
 const express = require('express');
 const router = express.Router();
 

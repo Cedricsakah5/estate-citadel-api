@@ -32,7 +32,7 @@ const Property =  mongoose.model('Property', new mongoose.Schema({
 }));
 
 
-function validatePeroperty(property) {
+function validateProperty(property) {
     const schema = Joi.object().keys({
       name: Joi.string().min(3).max(250).required(),
       description: Joi.string().min(5).max(500).required(),
@@ -44,4 +44,4 @@ function validatePeroperty(property) {
   }
   
   exports.Property = Property; 
-  exports.validate = validatePeroperty;
+  exports.validate = validateProperty;
