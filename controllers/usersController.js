@@ -8,8 +8,8 @@ getAllUsers = async (req, res) => {
 createUser = async (req, res) => {
     const { error } = validate(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
-    const {email, name,userType, phone, password } = req.body
-    let user = new User({ name,  email, userType, phone, password });
+    const {email, name, userType, phone, password } = req.body
+    let user = new User({ email, name, userType, phone, password });
     user = await user.save();
     
     res.send(user);

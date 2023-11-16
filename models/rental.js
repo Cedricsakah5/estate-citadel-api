@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi')
 const Rental =  mongoose.model('Rental', new mongoose.Schema({
 
   userId:{
@@ -7,11 +8,12 @@ const Rental =  mongoose.model('Rental', new mongoose.Schema({
 
     },
 
-    appartmentId:{
+    apartmentId:{
         type: mongoose.Types.ObjectId, 
         ref: 'Apartment'
 
     },
+  
     startDate: {
        type:Date,
        required:true
@@ -25,3 +27,18 @@ const Rental =  mongoose.model('Rental', new mongoose.Schema({
         require: true
      }
 }));
+
+function validateRental(rental) {
+   const schema = Joi.object().keys({
+      userId: Joi.string().required(),
+      apartmentId: Joi.string().required(),
+     startDate: Joi.date().required(),
+     endDate: Joi.date().required(),
+   fee:Joi.number().required()
+
+   });
+   return schema.validate(rental);
+ }
+
+ exports.Rental = Rental; 
+  exports.validate = validateRental;
