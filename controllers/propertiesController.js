@@ -19,7 +19,11 @@ createProperty = (req, res, next) => {
     }
 
     const body={name:fields.name[0], description:fields.description[0],
+
     location:fields.location[0],ownerId:fields.ownerId[0],date:fields.date[0]}
+=======
+    location:fields.location[0],ownerId:fields.ownerId[0]}
+
     const { error } = validate(body); 
     if (error) return res.status(400).send(error.details[0].message);
     let property = new Property({ ...body});
@@ -48,7 +52,11 @@ createProperty = (req, res, next) => {
     }
       
     const body={name:fields.name[0], description:fields.description[0],
+
       location:fields.location[0],ownerId:fields.ownerId[0],date:fields.date[0]}
+=======
+      location:fields.location[0],ownerId:fields.ownerId[0]}
+
       const { error } = validate(body); 
       let property = await Property.findByIdAndUpdate(req.params.id, {...body }, {  new: true
       });
