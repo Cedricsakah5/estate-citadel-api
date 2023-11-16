@@ -37,6 +37,9 @@ function validateUser(user) {
     name: Joi.string().min(3).max(250).required(),
     userType: Joi.string().valid('owner', 'customer').required(),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).required(),
+
+    // check in joi documentation 
+
     phone: Joi.string().min(9).max(11).required(),
     password: Joi.string().min(6).max(250).required()
   });
