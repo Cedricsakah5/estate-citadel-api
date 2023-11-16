@@ -28,6 +28,10 @@ const Property =  mongoose.model('Property', new mongoose.Schema({
     image:{
         data:Buffer,
         contentType:String
+    },
+    date:{
+        type:Date,
+        default:Date.now
     }
 }));
 
@@ -37,7 +41,8 @@ function validateProperty(property) {
       name: Joi.string().min(3).max(250).required(),
       description: Joi.string().min(5).max(500).required(),
       ownerId: Joi.string().required(),
-      location: Joi.string().required()
+      location: Joi.string().required(),
+      date: Joi.date().required()
 
     });
     return schema.validate(property);
