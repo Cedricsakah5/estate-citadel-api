@@ -1,3 +1,4 @@
+const auth = require('../middleware/auth')
 const {Apartment, validate} = require('../models/apartment');
 
 getAllApartments = async (req, res) => {
@@ -5,7 +6,7 @@ getAllApartments = async (req, res) => {
     res.send(apartments);
 }
 
-createApartment = async (req, res) => {
+createApartment = auth,async (req, res) => {
     const { error } = validate(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
     const {propertyId,apartmentNumber,available} = req.body
@@ -15,7 +16,7 @@ createApartment = async (req, res) => {
     res.send(apartment);
   };
 
-  updateApartment = async (req, res) => {
+  updateApartment = auth,async (req, res) => {
     const { error } = validate(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
     const {propertyId,apartmentNumber,available} = req.body
@@ -28,7 +29,7 @@ createApartment = async (req, res) => {
     res.send(apartment);
   };
 
-  deleteApartment =  async (req, res) => {
+  deleteApartment = auth, async (req, res) => {
     const apartment = await Apartment.findByIdAndRemove(req.params.id);
   
     if (!apartment) return res.status(404).send('The apartment with the given ID was not found.');

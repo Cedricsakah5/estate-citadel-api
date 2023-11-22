@@ -5,6 +5,9 @@ const user = require('./routes/Users');
 const property = require('./routes/Properties')
 const Apartment = require('./routes/Apartments');
 const Rental = require('./routes/Rental')
+
+const login = require('./routes/login')
+
 const express = require('express');
 
 const app = express();
@@ -19,6 +22,9 @@ app.use('/api/users', user);
 app.use('/api/properties', property);
 app.use('/api/apartments', Apartment);
 app.use('/api/rentals', Rental);
+
+app.use('/api/login',login)
+
 
 app.listen(3000, () => console.log('listening on port 3000...'));
 
