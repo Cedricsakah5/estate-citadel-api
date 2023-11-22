@@ -1,7 +1,9 @@
+const auth = require('../middleware/auth')
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 
-getAllUsers = async (req, res) => {
+getAllUsers = auth, async (req, res) => {
     const users = await User.find().sort('name');
     res.send(users);
 }
@@ -14,13 +16,21 @@ createUser = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt)
-
-    user = await user.save();
     
-    res.send(user);
+    user = await user.save();
+    token = jwt.sign(
+      {
+        _id: user.id,
+        name: user.name,
+        phone: user.phone,
+        userType: user.userType
+      },
+      'estateCitadel'
+    )
+    res.header('x-auth-token',token).send(user);
   };
 
-  updateUser = async (req, res) => {
+  updateUser = auth,async (req, res) => {
     const { error } = validate(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
     const {email, name,userType, phone, password } = req.body
@@ -33,7 +43,7 @@ createUser = async (req, res) => {
     res.send(user);
   };
 
-  deleteUser =  async (req, res) => {
+  deleteUser = auth, async (req, res) => {
     const user = await User.findByIdAndRemove(req.params.id);
   
     if (!user) return res.status(404).send('The user with the given ID was not found.');

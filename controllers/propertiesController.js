@@ -1,3 +1,4 @@
+const auth = require('../middleware/auth')
 const {Property, validate} = require('../models/property');
 const formidable = require('formidable')
 const fs = require('fs')
@@ -7,7 +8,7 @@ getAllProperties = async (req, res) => {
     res.send(properties);
   };
 
-createProperty = (req, res, next) => {
+createProperty = auth,(req, res, next) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
 
@@ -19,11 +20,7 @@ createProperty = (req, res, next) => {
     }
 
     const body={name:fields.name[0], description:fields.description[0],
-
     location:fields.location[0],ownerId:fields.ownerId[0],date:fields.date[0]}
-=======
-    location:fields.location[0],ownerId:fields.ownerId[0]}
-
     const { error } = validate(body); 
     if (error) return res.status(400).send(error.details[0].message);
     let property = new Property({ ...body});
@@ -41,7 +38,7 @@ createProperty = (req, res, next) => {
 };
 
 
-  updateProperty = (req, res) => {
+  updateProperty = auth, (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, async (err, fields, files) => {
@@ -52,11 +49,7 @@ createProperty = (req, res, next) => {
     }
       
     const body={name:fields.name[0], description:fields.description[0],
-
       location:fields.location[0],ownerId:fields.ownerId[0],date:fields.date[0]}
-=======
-      location:fields.location[0],ownerId:fields.ownerId[0]}
-
       const { error } = validate(body); 
       let property = await Property.findByIdAndUpdate(req.params.id, {...body }, {  new: true
       });
@@ -76,7 +69,7 @@ createProperty = (req, res, next) => {
     });
   };
   
-  deleteProperty = async (req, res) => {
+  deleteProperty = auth,async (req, res) => {
     const property = await Property.findByIdAndRemove(req.params.id);
   
     if (!property) return res.status(404).send('The property with the given ID was not found.');
@@ -93,4 +86,6 @@ createProperty = (req, res, next) => {
   };
 
   module.exports = {getAllProperties, createProperty, updateProperty,deleteProperty, getPropertyById}
+
+
 

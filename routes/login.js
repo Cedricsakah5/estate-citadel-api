@@ -1,9 +1,9 @@
-const authController = require('../controllers/authContoller')
+const loginController = require('../controllers/loginController')
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.post('/', authController.createUser);
+router.post('/', loginController.login);
 
 module.exports = router;
 

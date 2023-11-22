@@ -45,8 +45,7 @@ function validateProperty(property) {
       ownerId: Joi.string().required(),
 
       location: Joi.string().required(),
-      date: Joi.date().required()
-=======
+      date: Joi.date().required(),
       location: Joi.string().required()
 
 
